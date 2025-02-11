@@ -28,7 +28,7 @@ def create_app():
     
     
     # signature upload settings
-    app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'uploads')
+    app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'uploads')
     # Ensure the upload folder exists
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     # Optional: limit file size to 16MB
@@ -50,7 +50,3 @@ def create_app():
     migrate.init_app(app, db)
     return app
 
-
-# return filename path
-def image_path_link(file_name):
-    return os.path.join('uploads', file_name)

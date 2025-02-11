@@ -34,10 +34,20 @@
               </div>
             </div>
 
-            <div class="form-group mb-4">
-                <label class="text-black" for="college">Achievements</label><span>*</span>
+            <div class="row mt-4 mb-4">
+              <div class="col-6 col-sm-6">
+                <div class="form-group">
+                  <label class="text-black" for="college">Achievements</label><span>*</span>
                 {{ form.achievement (class="form-control", placeholder='Example: MBBS, FCPS', required=True) }}
+                </div>
               </div>
+              <div class="col-6 col-sm-6">
+                <div class="form-group">
+                  <label class="text-black" for="phone">Phone (Optional)</label>
+                  {{ form.phone (class="form-control", placeholder="Phone Number") }}
+                </div>
+              </div>
+            </div>
           </div>
   
           <!-- Spacer -->
@@ -85,7 +95,7 @@
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="form-group">
                   <label class="text-black" for="inv">Upload Signature</label><span>*</span>
-                  {{ form.signature (class="form-control", placeholder='Upload Image', required=True) }}
+                  {{ form.signature (class="form-control", placeholder='Upload Image') }}
                 </div>
               </div>
           </div>

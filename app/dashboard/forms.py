@@ -14,6 +14,7 @@ class ProfileSetUpForm(FlaskForm):
         ('other', 'Other')
     ])
     achievement = StringField('achieve',validators=[DataRequired()])
+    phone = StringField('phone', validators=[Optional()])
     college = StringField('college', validators=[DataRequired()])
     higher_degree = StringField('higher_degree', validators=[Optional()])
     course = StringField('course', validators=[Optional()])
@@ -44,6 +45,7 @@ class UpdateProfileSetUpForm(FlaskForm):
         ('other', 'Other')
     ])
     achievement = StringField('achieve',validators=[DataRequired()])
+    phone = StringField('phone', validators=[Optional()])
     college = StringField('college', validators=[DataRequired()])
     higher_degree = StringField('higher_degree', validators=[Optional()])
     course = StringField('course', validators=[Optional()])
@@ -51,6 +53,6 @@ class UpdateProfileSetUpForm(FlaskForm):
     current_position = StringField('current_position', validators=[DataRequired()])
     govt_reg = StringField('reg_no', validators=[DataRequired()])
     office = StringField('address', validators=[Optional()])
-    signature = FileField('sign', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'svg'], 'Images only!'), FileRequired()])
+    signature = FileField('sign', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'svg'], 'Images only!'), Optional()])
 
     submit = SubmitField('Update Info')

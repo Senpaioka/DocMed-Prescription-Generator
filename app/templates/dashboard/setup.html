@@ -33,10 +33,40 @@
               </div>
             </div>
 
-            <div class="form-group mb-4">
-                <label class="text-black" for="college">Achievements</label><span>*</span>
+            <div class="row mt-4 mb-4">
+              <div class="col-6 col-sm-6">
+                <div class="form-group">
+                  <label class="text-black" for="college">Achievements</label><span>*</span>
                 {{ form.achievement (class="form-control", placeholder='Example: MBBS, FCPS', required=True) }}
+                </div>
               </div>
+              <div class="col-6 col-sm-6">
+                <div class="form-group">
+                  <label class="text-black" for="phone">Phone (Optional)</label>
+                  {{ form.phone (class="form-control", placeholder="Phone Number") }}
+                </div>
+              </div>
+            </div> 
+
+          <div class="form-group mb-4">
+            <label class="text-black" for="college">College</label><span>*</span>
+            {{ form.college (class="form-control", placeholder='Example: Dhaka Medical College', required=True) }}
+          </div>
+
+          <div class="form-group mb-4">
+            <label class="text-black" for="college">University (Optional)</label>
+            {{ form.higher_degree (class="form-control", placeholder='If any', required=False) }}
+          </div>
+
+          <div class="form-group mb-4">
+            <label class="text-black" for="college">Courses (Optional)</label>
+            {{ form.course (class="form-control", placeholder='If any', required=False) }}
+          </div>
+
+          <div class="form-group mb-4">
+            <label class="text-black" for="college">Extra (Optional)</label>
+            {{ form.extra (class="form-control", placeholder='If any', required=False) }}
+          </div>
           </div>
   
           <!-- Spacer -->

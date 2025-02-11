@@ -11,7 +11,6 @@ import os
 
 dashboard = Blueprint('dashboard', __name__, template_folder='templates')
 
-
 # setup page
 @dashboard.route('/setup/<int:uid>', methods=['GET', 'POST'])
 @login_required
@@ -27,6 +26,7 @@ def setup_page(uid):
             birth_date = form.birth_date.data
             gender = form.sex.data
             tags = form.achievement.data
+            phone = form.phone.data
 
             college = form.college.data
             university = form.higher_degree.data
@@ -41,8 +41,9 @@ def setup_page(uid):
             # image processing
             if sign:
                 signature_image_name = secure_filename(sign.filename)
-                file_path = os.path.join('uploads', signature_image_name)
+                file_path = os.path.join('static','uploads', signature_image_name).replace("\\", "/")
                 sign.save(file_path)
+                
 
             create_profile = ProfileSetupModel(
                 user_id = get_user,
@@ -50,6 +51,7 @@ def setup_page(uid):
                 birth_date = birth_date,
                 sex = gender,
                 achievement = tags,
+                phone = phone,
                 college = college,
                 higher_degree = university,
                 course = course,
@@ -99,6 +101,7 @@ def update_profile_info(uid):
             get_info.birth_date = form.birth_date.data
             get_info.sex = form.sex.data
             get_info.achievement = form.achievement.data
+            get_info.phone = form.phone.data
             get_info.college = form.college.data
             get_info.higher_degree = form.higher_degree.data
             get_info.course = form.course.data
@@ -108,12 +111,12 @@ def update_profile_info(uid):
             get_info.office = form.office.data
 
             sign = form.signature.data
-            if sign:
+            
+            if sign != get_info.signature:
                 signature_image_name = secure_filename(sign.filename)
-                file_path = os.path.join('uploads', signature_image_name)
+                file_path = os.path.join('static','uploads', signature_image_name).replace("\\", "/")
                 sign.save(file_path)
-
-            get_info.signature = file_path
+                get_info.signature = file_path
 
             try:
                 db.session.commit()
@@ -142,5 +145,12 @@ def update_profile_info(uid):
 @login_required
 def profile_page(uid):
 
-    context = {}
+    get_user_info = ProfileSetupModel.query.get(uid)
+
+    context = {
+        'info': get_user_info,
+    }
     return render_template('dashboard/profile.html', **context)
+
+
+

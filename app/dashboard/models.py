@@ -14,6 +14,7 @@ class ProfileSetupModel(db.Model):
     birth_date = db.Column(db.DateTime(), nullable=False)
     sex = db.Column(db.String(10), nullable=False)
     achievement = db.Column(db.String(255), nullable=False)
+    phone = db.Column(db.String(15), nullable=True)
 
     # educational
     college = db.Column(db.String(150), nullable=False)

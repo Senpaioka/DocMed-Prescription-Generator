@@ -15,7 +15,6 @@
                 <a href="{{ url_for('accounts.logout_view') }}">Logout</a> | 
                 <a href="{{ url_for('accounts.registration_update_page', uid=current_user.uid) }}">Update Registration</a> |
                 <a href="{{ url_for('dashboard.setup_page', uid=current_user.uid) }}">SetUp</a> |
-                <a href="{{ url_for('dashboard.update_profile_info', uid=current_user.uid) }}">Update Info</a> |
                 <a href="{{ url_for('dashboard.profile_page', uid=current_user.uid) }}">Profile</a> |
                 {% else %}
                 <a href="{{ url_for('accounts.registration_page') }}">Registration</a> |

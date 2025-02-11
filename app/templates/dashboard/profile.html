@@ -16,23 +16,23 @@
             <tbody>
                 <tr>
                     <th>Full Name</th>
-                    <td>John Doe</td>
+                    <td>{{ info.full_name }}</td>
                 </tr>
                 <tr>
                     <th>Date of Birth</th>
-                    <td>12/02/2025</td>
+                    <td>{{ info.birth_date.strftime('%d-%m-%Y') }}</td>
                 </tr>
                 <tr>
                     <th>Phone</th>
-                    <td>+123 456 7890</td>
+                    <td>{{ info.phone }}</td>
                 </tr>
                 <tr>
                     <th>Gender</th>
-                    <td>Male</td>
+                    <td>{{ info.sex }}</td>
                 </tr>
                 <tr>
                     <th>Achievements</th>
-                    <td>MBBS</td>
+                    <td>{{ info.achievement }}</td>
                 </tr>
             </tbody>
         </table>
@@ -44,24 +44,20 @@
             <table class="table table-bordered mt-3 mb-3">
                 <tbody>
                     <tr>
-                        <th>Full Name</th>
-                        <td>John Doe</td>
+                        <th>College</th>
+                        <td>{{ info.college }}</td>
                     </tr>
                     <tr>
-                        <th>Date of Birth</th>
-                        <td>12/02/2025</td>
+                        <th>University</th>
+                        <td>{{ info.higher_degree }}</td>
                     </tr>
                     <tr>
-                        <th>Phone</th>
-                        <td>+123 456 7890</td>
+                        <th>Courses</th>
+                        <td>{{ info.course }}</td>
                     </tr>
                     <tr>
-                        <th>Gender</th>
-                        <td>Male</td>
-                    </tr>
-                    <tr>
-                        <th>Achievements</th>
-                        <td>MBBS</td>
+                        <th>Extra Info</th>
+                        <td>{{ info.extra }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -73,35 +69,31 @@
             <table class="table table-bordered mt-3 mb-3">
                 <tbody>
                     <tr>
-                        <th>Full Name</th>
-                        <td>John Doe</td>
+                        <th>Current Position</th>
+                        <td>{{ info.current_position }}</td>
                     </tr>
                     <tr>
-                        <th>Date of Birth</th>
-                        <td>12/02/2025</td>
+                        <th>Govt. Registration ID</th>
+                        <td>{{ info.govt_reg }}</td>
                     </tr>
                     <tr>
-                        <th>Phone</th>
-                        <td>+123 456 7890</td>
+                        <th>Chamber/Office Address</th>
+                        <td>{{ info.office }}</td>
                     </tr>
                     <tr>
-                        <th>Gender</th>
-                        <td>Male</td>
-                    </tr>
-                    <tr>
-                        <th>Achievements</th>
-                        <td>MBBS</td>
+                        <th>Signature</th>
+                        <td><img src="/{{ info.signature }}" alt="sign" style="width: 200px; height: 100px;"></td>
+                        
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        
 
         <div class="text-center mt-3">
-            <a href="#" class="btn btn-primary"><i class="fa-regular fa-pen-to-square"></i> Edit Data</a>
-        </div>
-        
+            <a href="{{ url_for('dashboard.update_profile_info', uid=current_user.uid) }}" class="btn btn-primary"><i class="fa-regular fa-pen-to-square"></i> Edit Data</a>
+        </div>    
+
       </div>
     </div>
   </div>
