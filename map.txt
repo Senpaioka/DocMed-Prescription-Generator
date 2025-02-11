@@ -1,0 +1,26 @@
+
+
+DocMed/
+├── app/
+│   ├── __init__.py         # Application factory & blueprint registration
+│   ├── models.py           # Database models
+│   ├── extensions.py       # Initialize Flask extensions (e.g., db, login_manager)
+│   ├── main/               # A blueprint (e.g., for main routes)
+│   │   ├── __init__.py
+│   │   ├── routes.py
+│   │   └── forms.py
+│   ├── auth/               # Another blueprint (e.g., for authentication)
+│   │   ├── __init__.py
+│   │   ├── routes.py
+│   │   └── forms.py
+│   ├── templates/          # Global templates folder or inside each blueprint
+│   │   ├── base.html
+│   │   └── ...             # Other template files
+│   └── static/             # Static files (CSS, JavaScript, images)
+│       ├── css/
+│       ├── js/
+│       └── images/
+├── config.py               # Configuration settings (dev, testing, production)
+├── migrations/             # Database migration scripts (if using Flask-Migrate)
+├── requirements.txt        # List of dependencies
+└── manage.py               # Application entry point and CLI commands

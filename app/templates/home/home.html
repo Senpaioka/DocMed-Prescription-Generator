@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+        <div class="container d-flex justify-content-center">
+            <div class="register-container">
+                <h3 class="text-center mb-4">Home</h3>
+                <p>welcome to DocMed</p>
+            </div>
+            <div>
+                {% if current_user.is_authenticated %}
+                {{ current_user.username }} :
+                <a href="{{ url_for('accounts.logout_view') }}">Logout</a> | 
+                <a href="{{ url_for('accounts.registration_update_page', uid=current_user.uid) }}">Update Registration</a> |
+                <a href="{{ url_for('dashboard.setup_page', uid=current_user.uid) }}">SetUp</a> |
+                <a href="{{ url_for('dashboard.update_profile_info', uid=current_user.uid) }}">Update Info</a> |
+                <a href="{{ url_for('dashboard.profile_page', uid=current_user.uid) }}">Profile</a> |
+                {% else %}
+                <a href="{{ url_for('accounts.registration_page') }}">Registration</a> |
+                <a href="{{ url_for('accounts.login_page') }}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+	
+{% endblock %}
