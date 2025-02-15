@@ -40,11 +40,13 @@ def create_app():
     from app.home.routes import home
     from app.account.routes import accounts
     from app.dashboard.routes import dashboard
+    from app.pdf.routes import pdf_generator
 
     # register blueprints
     app.register_blueprint(home, url_prefix='/')
     app.register_blueprint(accounts, url_prefix='/account')
     app.register_blueprint(dashboard, url_prefix='/dashboard')
+    app.register_blueprint(pdf_generator, url_prefix='/pdf')
 
 
     migrate.init_app(app, db)

@@ -1,6 +1,8 @@
 from app.app import db
 from datetime import datetime
 from flask_login import UserMixin
+from app.dashboard.models import ProfileSetupModel
+from app.pdf.models import PrescriptionModel
 
 
 
@@ -17,6 +19,8 @@ class RegistrationModel(UserMixin, db.Model):
     # parent relation
     # one to one relationship
     profile_info = db.relationship('ProfileSetupModel', backref='registration', uselist=False)
+    # one to many
+    prescription = db.relationship('PrescriptionModel', backref='prescription', uselist=True, cascade="all, delete-orphan")
 
     def __repr__(self):
         return self.username

@@ -16,6 +16,7 @@
                 <a href="{{ url_for('accounts.registration_update_page', uid=current_user.uid) }}">Update Registration</a> |
                 <a href="{{ url_for('dashboard.setup_page', uid=current_user.uid) }}">SetUp</a> |
                 <a href="{{ url_for('dashboard.profile_page', uid=current_user.uid) }}">Profile</a> |
+                <a href="{{ url_for('pdf_generator.document_page') }}">Doc</a> |
                 {% else %}
                 <a href="{{ url_for('accounts.registration_page') }}">Registration</a> |
                 <a href="{{ url_for('accounts.login_page') }}">Login</a>

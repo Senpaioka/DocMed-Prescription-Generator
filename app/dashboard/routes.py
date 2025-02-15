@@ -1,8 +1,7 @@
 from flask import request, render_template, redirect, url_for, flash, Blueprint
 from app.app import db
-from email_validator import validate_email
 from sqlalchemy.exc import IntegrityError
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_required
 from app.dashboard.forms import ProfileSetUpForm, UpdateProfileSetUpForm
 from app.dashboard.models import ProfileSetupModel
 from app.account.models import RegistrationModel
