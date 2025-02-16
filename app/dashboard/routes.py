@@ -5,6 +5,7 @@ from flask_login import login_required
 from app.dashboard.forms import ProfileSetUpForm, UpdateProfileSetUpForm
 from app.dashboard.models import ProfileSetupModel
 from app.account.models import RegistrationModel
+from app.pdf.models import PrescriptionModel
 from werkzeug.utils import secure_filename
 import os
 
@@ -150,6 +151,26 @@ def profile_page(uid):
         'info': get_user_info,
     }
     return render_template('dashboard/profile.html', **context)
+
+
+
+
+
+
+@dashboard.route('/history/<int:uid>')
+@login_required
+def history_page(uid):
+    # Get the current page from URL, default is 1
+    get_page = request.args.get('page', 1, type=int) 
+    # Number of items per page
+    per_page = 25 
+
+    paged_history = PrescriptionModel.query.filter_by(doc_id=uid).order_by(PrescriptionModel.created_at.desc()).paginate(page=get_page, per_page=per_page, error_out=False)
+    
+    context = {
+        'info': paged_history,
+    }
+    return render_template('dashboard/history.html', **context)
 
 
 

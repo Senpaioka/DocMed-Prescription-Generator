@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
 
+
 class RegistrationForm(FlaskForm):
 
     username = StringField('username', validators=[DataRequired(), Length(min=2, max=60)])
@@ -56,3 +57,7 @@ class UpdateRegistrationForm(FlaskForm):
     validators=[DataRequired(message="Please select your gender.")]
 
     update = SubmitField('Update')
+
+
+
+

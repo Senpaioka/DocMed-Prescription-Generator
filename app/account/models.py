@@ -20,7 +20,10 @@ class RegistrationModel(UserMixin, db.Model):
     # one to one relationship
     profile_info = db.relationship('ProfileSetupModel', backref='registration', uselist=False)
     # one to many
-    prescription = db.relationship('PrescriptionModel', backref='prescription', uselist=True, cascade="all, delete-orphan")
+    prescription = db.relationship('PrescriptionModel', backref='prescription', uselist=True, cascade="all, delete-orphan", order_by='desc(PrescriptionModel.created_at)')
+    # admin
+    is_admin = db.Column(db.Boolean, default=False)
+    is_active = db.Column(db.Boolean, default=True)
 
     def __repr__(self):
         return self.username

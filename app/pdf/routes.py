@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect, url_for, flash, Blueprint
+from flask import request, render_template, redirect, url_for, flash, Response, Blueprint
 from app.app import db
 from sqlalchemy.exc import IntegrityError
 from flask_login import login_required, current_user
@@ -6,6 +6,7 @@ from app.pdf.models import PrescriptionModel
 from app.account.models import RegistrationModel
 from app.pdf.forms import PrescriptionForm
 import uuid
+from weasyprint import HTML, CSS
 
 # patient id generator
 def short_uuid(length: int = 8) -> str:
@@ -82,24 +83,6 @@ def document_page():
 
 
 
-@pdf_generator.route('/data', methods=['GET', 'POST'])
-@login_required
-def document_data():
-
-
-    if request.method == 'POST':
-
-        name = request.form.get('patient_name')
-        med = request.form.get('med')
-        dose = request.form.get('dose')
-        rx = request.form.get('rx')
-        print(rx)
-
-        return redirect(url_for('home.home_page'))
-    
-
-
-
 
 
 @pdf_generator.route('/preview/<patient_id>')
@@ -112,4 +95,46 @@ def pdf_prescription_preview(patient_id):
         'patient': get_patient,
     }
 
-    return render_template('pdf/pdf.html', **context)
+    return render_template('pdf/pdf_preview.html', **context)
+
+
+
+
+
+
+
+@pdf_generator.route('/generate_pdf/<uid>/<patient_id>')
+def pdf_generator_page(uid, patient_id):
+
+
+
+    # getting patient prescription
+    get_patient = PrescriptionModel.query.filter_by(patient_id=patient_id).first()
+    # getting doctor info
+    get_doctor = RegistrationModel.query.get(uid)
+
+    # Check if the patient exists
+    if not get_patient:
+        return "Prescription not found", 404
+
+    # Pass context to template
+    context = {
+        'patient': get_patient,
+        'doctor': get_doctor,
+    }
+
+    # Render HTML content
+    html_content = render_template('pdf/pdf.html', **context)
+
+    # Generate PDF (Ensure static assets are loaded properly)
+    pdf = HTML(string=html_content, base_url=request.host_url).write_pdf()
+
+    # Return PDF as a response
+    return Response(pdf, mimetype='application/pdf', headers={
+        "Content-Disposition": "inline; filename=prescription.pdf"
+    })
+
+
+
+
+    

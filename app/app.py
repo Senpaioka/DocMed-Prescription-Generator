@@ -3,10 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 import os
+# admin
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 
 db = SQLAlchemy()
 migrate = Migrate()
+
 
 def create_app():
     app = Flask(__name__, template_folder='templates', )
@@ -17,11 +21,15 @@ def create_app():
     WTF_CSRF_SECRET_KEY = 'test'
     app.config['SECRET_KEY'] = WTF_CSRF_SECRET_KEY
 
+    # all models    
+    from app.account.models import RegistrationModel
+    from app.dashboard.models import ProfileSetupModel
+    from app.pdf.models import PrescriptionModel
+
     # flask login
     login_manager = LoginManager()
     login_manager.init_app(app)
 
-    from app.account.models import RegistrationModel
     @login_manager.user_loader
     def load_user(uid):
         return RegistrationModel.query.get(uid)
@@ -35,6 +43,12 @@ def create_app():
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 
+    # admin panel settings
+    admin = Admin(app, name='DocMed-Admin-Panel')
+    admin.add_view(ModelView(RegistrationModel, db.session))
+    admin.add_view(ModelView(ProfileSetupModel, db.session))
+    admin.add_view(ModelView(PrescriptionModel, db.session))
+
 
     # importing blueprints
     from app.home.routes import home
@@ -47,7 +61,6 @@ def create_app():
     app.register_blueprint(accounts, url_prefix='/account')
     app.register_blueprint(dashboard, url_prefix='/dashboard')
     app.register_blueprint(pdf_generator, url_prefix='/pdf')
-
 
     migrate.init_app(app, db)
     return app
